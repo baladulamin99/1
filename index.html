@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ক্যাশ আউট চার্জ ক্যালকুলেটর</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+            color: #333;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        h2 {
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #555;
+            font-size: 16px;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 18px;
+            transition: border-color 0.3s;
+            background-color: #f9f9f9;
+        }
+        input[type="number"]:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.02);
+        }
+        #result {
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            min-height: 30px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #ecf0f1;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .wallet-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .wallet-logo {
+            width: 80px;
+            height: 40px;
+            border-radius: 8px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .wallet-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .credit {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #000;
+        }
+        .credit a {
+            color: #000;
+            text-decoration: none;
+        }
+        .credit a:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+        .follow-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .social-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        .social-button.facebook {
+            background-color: #3b5998;
+        }
+        .social-button.instagram {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+        .social-button.linkedin {
+            background-color: #0077B5;
+        }
+        .social-button.youtube {
+            background-color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ক্যাশ আউট চার্জ ক্যালকুলেটর</h2>
+    
+    <div class="wallet-display">
+        <div class="form-group" style="flex-grow: 1;">
+            <label for="wallet">মোবাইল ওয়ালেট:</label>
+            <select id="wallet">
+                <option value="bKash" data-logo-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Crect width='100%25' height='100%25' fill='%23E2136E'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'%3EbKash%3C/text%3E%3C/svg%3E">বিকাশ</option>
+                <option value="bKash_priyo" data-logo-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Crect width='100%25' height='100%25' fill='%23E2136E'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'%3EbKash%3C/text%3E%3C/svg%3E">বিকাশ প্রিয় এজেন্ট</option>
+                <option value="nagad_app" data-logo-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Crect width='100%25' height='100%25' fill='%23ED1C24'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'%3ENagad%3C/text%3E%3C/svg%3E">নগদ অ্যাপ</option>
+                <option value="nagad_ussd" data-logo-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Crect width='100%25' height='100%25' fill='%23ED1C24'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'%3ENagad%3C/text%3E%3C/svg%3E">নগদ USSD</option>
+                <option value="rocket" data-logo-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Crect width='100%25' height='100%25' fill='%238C3093'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'%3ERocket%3C/text%3E%3C/svg%3E">রকেট</option>
+                <option value="upay" data-logo-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23FFD602' /%3E%3Cstop offset='100%25' stop-color='%230055A7' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grad)' /%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'%3EUpay%3C/text%3E%3C/svg%3E">উপায়</option>
+                <option value="m_cash" data-logo-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Crect width='100%25' height='100%25' fill='%23006A44'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'%3EM Cash%3C/text%3E%3C/svg%3E">এম ক্যাশ</option>
+
+            </select>
+        </div>
+        <div class="wallet-logo">
+            <img id="logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Crect width='100%25' height='100%25' fill='%23E2136E'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'%3EbKash%3C/text%3E%3C/svg%3E" alt="Wallet Logo">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="amount">টাকার পরিমাণ (টাকা):</label>
+        <input type="number" id="amount" placeholder="পরিমাণ লিখুন" min="0" step="any">
+    </div>
+    <button onclick="calculateCharge()">ক্যাশ আউট চার্জ</button>
+    <div id="result"></div>
+    <p class="credit">এই অ্যাপটি তৈরি করেছে &copy; <a href="https://www.facebook.com/baladulamin99" target="_blank" rel="noopener noreferrer">Md. Baladul Amin</a></p>
+
+    <div class="follow-buttons">
+        <!-- Facebook button with Font Awesome icon -->
+        <a href="https://www.facebook.com/baladulamin99" target="_blank" rel="noopener noreferrer" class="social-button facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <!-- Instagram button with Font Awesome icon -->
+        <a href="https://www.instagram.com/baladulamin99/?hl=en" target="_blank" rel="noopener noreferrer" class="social-button instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <!-- LinkedIn button with Font Awesome icon -->
+        <a href="https://www.linkedin.com/in/baladulamin99/" target="_blank" rel="noopener noreferrer" class="social-button linkedin">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <!-- YouTube button with Font Awesome icon -->
+        <a href="https://www.youtube.com/@baladulamin99" target="_blank" rel="noopener noreferrer" class="social-button youtube">
+            <i class="fab fa-youtube"></i>
+        </a>
+    </div>
+</div>
+
+<script>
+    // লোগো আপডেট করার ফাংশন
+    function updateLogo() {
+        const walletSelect = document.getElementById('wallet');
+        const logoImg = document.getElementById('logo-img');
+        const selectedOption = walletSelect.options[walletSelect.selectedIndex];
+        
+        logoImg.src = selectedOption.getAttribute('data-logo-src');
+    }
+
+    // চার্জ গণনা করার ফাংশন
+    function calculateCharge() {
+        const wallet = document.getElementById('wallet').value;
+        const amountInput = document.getElementById('amount');
+        const amount = parseFloat(amountInput.value);
+        const resultDiv = document.getElementById('result');
+
+        // ইনপুট সঠিক কিনা তা যাচাই করা
+        if (isNaN(amount) || amount <= 0) {
+            resultDiv.innerHTML = '⚠️ একটি সঠিক সংখ্যা লিখুন।';
+            resultDiv.style.color = '#e74c3c';
+            return;
+        }
+
+        let chargePerThousand;
+
+        // নির্বাচিত ওয়ালেট অনুযায়ী চার্জ নির্ধারণ
+        switch(wallet) {
+            case 'bKash':
+                chargePerThousand = 18.50;
+                break;
+            case 'bKash_priyo':
+                chargePerThousand = 14.90;
+                break;
+            case 'nagad_app':
+                chargePerThousand = 12.99;
+                break;
+            case 'nagad_ussd':
+                chargePerThousand = 15.00;
+                break;
+            case 'rocket':
+                chargePerThousand = 9.99;
+                break;
+            case 'upay':
+                chargePerThousand = 14.50;
+                break;
+            case 'm_cash':
+                chargePerThousand = 10.50;
+                break;
+            default:
+                chargePerThousand = 0;
+        }
+
+        const chargePerTaka = chargePerThousand / 1000;
+        const totalCharge = (amount * chargePerTaka);
+
+        resultDiv.innerHTML = `${totalCharge.toFixed(2)} টাকা`;
+        resultDiv.style.color = '#27ae60';
+    }
+
+    // পেজ লোড হলে এবং ড্রপডাউন পরিবর্তন হলে লোগো আপডেট করার জন্য ইভেন্ট লিসেনার যোগ করা
+    document.addEventListener('DOMContentLoaded', () => {
+        const walletSelect = document.getElementById('wallet');
+        walletSelect.addEventListener('change', updateLogo);
+        updateLogo();
+    });
+</script>
+
+</body>
+</html>
